@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Tracker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <style>
+        body {
+            padding: 2rem;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .navbar {
+            background-color: #00d1b2;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .navbar a {
+            color: white;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        .card {
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="navbar">
+            <a href="{% url 'job_list' %}">🏠 Home</a>
+            <a href="{% url 'create_job' %}">➕ Add Job</a>
+        </div>
+
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <div class="notification is-info">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

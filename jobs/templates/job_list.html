@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>My Job Applications</h2>
+  <br>
+
+  <ul>
+    {% for job in jobs %}
+      <li>
+        <strong>{{ job.position }}</strong> at {{ job.company_name }} <br>
+        <small>Status: {{ job.status }} | Applied on: {{ job.application_date }}</small><br>
+        <a href="{% url 'update_job' job.pk %}">✏️ Edit</a> |
+
+        <!-- Delete Form with Popup -->
+        <form method="post" action="{% url 'delete_job' job.pk %}" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this job?');">
+          {% csrf_token %}
+          <button type="submit" style="background:none;border:none;color:red;cursor:pointer;">🗑️ Delete</button>
+        </form>
+        <hr>
+      </li>
+    {% empty %}
+      <li>No jobs added yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
