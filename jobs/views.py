@@ -18,7 +18,8 @@ def register(request):
             return redirect('login')
     else:
         form = RegistrationForm()
-    return render(request,'login.html',{'form':form})
+    return render(request,'registration/register.html',{'form':form})
+
 
 #For creting new Post for the Jobs 
 @login_required
@@ -29,7 +30,7 @@ def create_job(request):
             job = form.save(commit = False)
             job.user = request.user
             job.save()
-            return redirect('job_list')
+            return redirect('joblist')
     else:
         form = JobForm()
     return render(request,'job_form.html',{'form':form})
@@ -43,7 +44,7 @@ def update_job(request, pk):
         form = JobForm(request.POST, instance=job)
         if form.is_valid():
             form.save()
-            return redirect('job_list')  
+            return redirect('joblist')  
     else:
         form = JobForm(instance=job)
 
@@ -59,6 +60,6 @@ def delete_job(request, pk):
     if request.method == "POST":
         job.delete()
         messages.success(request, "Job deleted successfully.")
-        return redirect('job_list')
+        return redirect('joblist')
 
-    return redirect('job_list') 
+    return redirect('joblist') 

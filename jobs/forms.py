@@ -9,11 +9,13 @@ class JobForm(forms.ModelForm):
         model = Job
         fields = ['company_name','position','application_date','status','notes']
 
+
 class RegistrationForm(UserCreationForm):
+
     email = forms.EmailField()
     class Meta:
         model = User
-        fields = ['Username','email','password1','password2']
+        fields = ['username','email','password1','password2']
         
 # class UpdateStatusForm(forms.ModelForm):
 #     class Meta:

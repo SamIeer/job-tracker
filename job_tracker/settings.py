@@ -119,8 +119,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 LOGIN_URL = '/login/'
-LOGIN_URL_REDIRECT = '/job_list/'
-LOGOUT_URL_REDIRECT = '/'
+LOGIN_REDIRECT_URL = '/joblist/' #After Successful login
+LOGOUT_REDIRECT_URL = '/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

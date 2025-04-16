@@ -2,8 +2,12 @@
 
 {% block content %}
 <div class="navbar">
-  <a href="{% url 'job_list' %}">🏠 Home</a>
+  <a >🏠 Home</a>
   <a href="{% url 'create_job' %}">➕ Add Job</a>
+  <form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
 </div>
 
 <h1>My Job Applications</h1>

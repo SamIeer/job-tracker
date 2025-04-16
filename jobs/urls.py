@@ -16,13 +16,17 @@ Including another URLconf
 """
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('', views.job_list, name='job_list'),
+    path('',auth_views.LoginView.as_view(template_name='registration/login.html'),name='login'),
+    path('register/',views.register,name='register'),
+    path('/',auth_views.LogoutView.as_view(template_name='registration/logout.html'),name='logout'),
+
+    path('joblist/', views.job_list, name="joblist"),
     path('add/', views.create_job, name='create_job'),
     path('job/<int:pk>/edit/', views.update_job, name='update_job'),
     path('job/<int:pk>/delete/', views.delete_job, name='delete_job'),
-
 ]
 
 
