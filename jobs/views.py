@@ -3,11 +3,32 @@ from .forms import JobForm , RegistrationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Job
+from django.db.models import Q
+
 
 @login_required
 def job_list(request):
     jobs = Job.objects.filter(user=request.user)
-    return render(request, 'job_list.html', {'jobs': jobs})
+
+    query = request.GET.get('q')
+    status_filter = request.GET.get('status')
+
+    if query:
+        jobs = jobs.filter(
+            Q(company_name__icontains=query) |
+            Q(position__icontains=query)
+        )
+
+    if status_filter and status_filter != 'All':
+        jobs = jobs.filter(status=status_filter)
+
+    context = {
+        'jobs': jobs,
+        'query': query or '',
+        'status_filter': status_filter or 'All',
+        'status_choices': ['All'] + list(set(jobs.values_list('status', flat=True))),
+    }
+    return render(request, 'job_list.html', context)
 
 #Registration Form
 def register(request):

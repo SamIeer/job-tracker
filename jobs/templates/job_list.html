@@ -1,39 +1,84 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<div class="navbar">
-  <a >🏠 Home</a>
-  <a href="{% url 'create_job' %}">➕ Add Job</a>
-  <form action="{% url 'logout' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Logout</button>
-</form>
-</div>
+<div class="navbar mb-4 is-flex is-align-items-center is-justify-content-space-between">
 
-<h1>My Job Applications</h1>
+  <!-- LEFT LINKS -->
+  <div class="navbar-start">
+    <a class="navbar-item">🏠 Home</a>
+    <a class="navbar-item" href="{% url 'create_job' %}">➕ Add Job</a>
+  </div>
+
+  <!-- RIGHT SIDE: SEARCH, FILTER, LOGOUT -->
+  <div class="navbar-end is-flex is-align-items-center" style="gap: 10px;">
+
+    <!-- SEARCH & FILTER FORM -->
+    <form method="GET" class="is-flex is-align-items-center" style="gap: 5px;">
+      <input type="text" name="q" placeholder="Search"
+            value="{{ query }}" class="input is-small" style="width: 180px;">
+    
+      <select name="status" class="select is-small" style="width: 120px;">
+        {% for choice in status_choices %}
+          <option value="{{ choice }}" {% if status_filter == choice %}selected{% endif %}>{{ choice }}</option>
+        {% endfor %}
+      </select>
+    
+      <button type="submit" class="button is-info is-small">Search</button>
+    </form>
+
+    <!-- LOGOUT BUTTON -->
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button class="button is-light is-small" type="submit">Logout</button>
+      </form>
+      </div>
+    </div>
+
+<h1 class="title">My Job Applications</h1>
 <br>
-  <ul>
-    {% for job in jobs %}
-      <li>
-        <strong>{{ job.position }}</strong> at {{ job.company_name }} <br>
-        <small>Status: {{ job.status }} | Applied on: {{ job.application_date }}</small><br>
-        <a href="{% url 'update_job' job.pk %}" class="button is-info is-small">Edit</a> |
+            <div class="columns is-multiline">
+              {% for job in jobs %}
+                <div class="column is-one-third">
+                  <div class="card">
+                    <header class="card-header">
+                      <p class="card-header-title">
+                        {{ job.position }} at {{ job.company_name }}
+                      </p>
+                    </header>
+                    <div class="card-content">
+                      <div class="content">
+                        <span class="tag 
+                          {% if job.status == 'applied' %}is-warning
+                          {% elif job.status == 'interviewing' %}is-info
+                          {% elif job.status == 'offered' %}is-success
+                          {% elif job.status == 'rejected' %}is-danger
+                          {% else %}is-light{% endif %}">
+                          {{ job.status }}
+                        </span>
 
-        <!-- Delete Form with Popup -->
-        <form method="POST" action="{% url 'delete_job' job.pk %}" style="display:inline;" onsubmit="return confirmDelete();">
-          {% csrf_token %}
-          <button type="submit" class="button is-danger is-small">Delete</button>
-        </form>
-        
-        <hr>
-      </li>
-    {% empty %}
-      <li>No jobs added yet.</li>
-    {% endfor %}
-  </ul>
+
+                        <p><strong>Applied on:</strong> {{ job.application_date }}</p>
+                      </div>
+                    </div>
+                    <footer class="card-footer">
+                      <a href="{% url 'update_job' job.pk %}" class="card-footer-item has-text-info">Edit</a>
+
+                      <!-- Delete Form inside Card Footer -->
+                      <form method="POST" action="{% url 'delete_job' job.pk %}" onsubmit="return confirmDelete();" class="card-footer-item p-0">
+                        {% csrf_token %}
+                        <button type="submit" class="button is-danger is-small m-2">Delete</button>
+                      </form>
+                    </footer>
+                  </div>
+                </div>
+              {% empty %}
+                <p class="has-text-grey">No jobs added yet.</p>
+              {% endfor %}
+            </div>
+
 <script>
-    function confirmDelete() {
-      return confirm("Are you sure you want to delete this job?");
-    }
-</script>    
+  function confirmDelete() {
+    return confirm("Are you sure you want to delete this job?");
+  }
+</script>
 {% endblock %}
+
