@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <style>
         body {
-            padding: 2rem;
+            padding: 0rem;
             background-color: #f4f4f4;
         }
         .container {
@@ -31,16 +31,9 @@
     </style>
 </head>
 <body>
-        {% if messages %}
-            <div>
-                {% for message in messages %}
-                    <div class="notification is-info">{{ message }}</div>
-                {% endfor %}
-            </div>
-        {% endif %}
-
+    
         {% block content %}
+        
         {% endblock %}
-    </div>
-</body>
+</body> 
 </html>
