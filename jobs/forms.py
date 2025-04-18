@@ -1,5 +1,5 @@
 from django import forms
-from .models import Job
+from .models import Job, Reflection , Resume
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -21,3 +21,25 @@ class RegistrationForm(UserCreationForm):
 #     class Meta:
 #         model = Job
 #         fields = ['status', 'next_step_date', 'notes']
+from django import forms
+from .models import Reflection
+
+class ReflectionForm(forms.ModelForm):
+    class Meta:
+        model = Reflection
+        fields = ['reflection_text']
+        widgets = {
+            'reflection_text': forms.Textarea(attrs={
+                'placeholder': "What did you learn? Why didn't it go well? What could you do better next time?",
+                'rows': 5,
+                'class': 'textarea'
+            })
+        }
+
+from django import forms
+from .models import Resume
+
+class ResumeForm(forms.ModelForm):
+    class Meta:
+        model = Resume
+        fields = ['title', 'file']

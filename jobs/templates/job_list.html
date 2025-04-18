@@ -46,8 +46,13 @@
               value="{{ query }}" class="input is-small" style="width: 180px;">
         <button type="submit" class="button is-info is-small">Search</button>
       </form>
+<!-- Refelection and deletion ---------------------------------------->
+      <a class="navbar-item" href="{% url 'reflection_list' %}"> Reflections</a>
 
-        <!-- LOGOUT BUTTON -->
+<!-- Resume Lists ---------------- -->
+      <a class="navbar-item" href="{% url 'resume_list' %}">📎 Resumes</a>
+
+<!-------------------------------------- LOGOUT BUTTON -------------------------------------------->
           <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <button class="button is-light is-small" type="submit">Logout</button>
@@ -130,7 +135,7 @@
                       <a href="{% url 'update_job' job.pk %}" class="card-footer-item has-text-info">Edit</a>
 
                       <!-- Delete Form inside Card Footer -->
-                      <form method="POST" action="{% url 'delete_job' job.pk %}" onsubmit="return confirmDelete();" class="card-footer-item p-0">
+                      <form method="POST" action="{% url 'reflect_and_delete' job.id %}" onsubmit="return confirmDelete();" class="card-footer-item p-0">
                         {% csrf_token %}
                         <button type="submit" class="button is-danger is-small m-2">Delete</button>
                       </form>

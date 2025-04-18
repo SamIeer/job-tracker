@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2 class="title is-4">🧠 Your Reflections</h2>
+  {% if reflections %}
+    {% for reflection in reflections %}
+      <div class="box">
+        <p><strong>{{ reflection.job_title }}</strong> at <strong>{{ reflection.company_name }}</strong></p>
+        <p><em>{{ reflection.date|date:"d M Y, H:i" }}</em></p>
+        <p>{{ reflection.reflection_text }}</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>You haven't written any reflections yet.</p>
+  {% endif %}
+{% endblock %}

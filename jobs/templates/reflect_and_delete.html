@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="box">
+    <h2 class="title is-4">Reflect before deleting</h2>
+    <p><strong>Job:</strong> {{ job.position }} at {{ job.company_name }}</p>
+
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="button is-danger">Delete and Save Reflection</button>
+      <a href="{% url 'joblist' %}" class="button is-light">Cancel</a>
+    </form>
+  </div>
+{% endblock %}
