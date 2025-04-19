@@ -18,6 +18,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://job-tracker-gnsc.onrender.com',
+]
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -27,6 +30,7 @@ SECRET_KEY = 'django-insecure-6-4=omu0er5y7-wc3ag3^146*^#=il4dobh8fgtrhv#0lceqw(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+ALLOWED_HOSTS = ['job-tracker-gnsc.onrender.com']
 ALLOWED_HOSTS = ['*']
 
 
