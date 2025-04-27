@@ -39,3 +39,6 @@ Live Site 🌐: [https://job-tracker-gnsc.onrender.com](https://job-tracker-gnsc
    ```bash
    git clone https://job-tracker-gnsc.onrender.com/.git
    cd job-tracker
+
+
+![videoframe_48654](https://github.com/user-attachments/assets/6a08896f-5eb9-4ed7-b248-e5bbd97c9dd8)
